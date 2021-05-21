@@ -1,0 +1,59 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li><a href="{{ path('overzichtactiviteiten') }}">Home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge"></span>Activiteiten</a></li>
+    <li><a href="{{ path('soortIndex') }}"><span class="badge"></span>Soort Activiteiten</a></li>
+    <li class="active"><a href="{{ path('deelnemers') }}"><span class="badge"></span>Gebruikers</a></li>
+{% endblock %}
+{% block content %}
+    <section >
+        <table class="table" style="table-layout: fixed">
+            <caption>Dit zijn alle gebruikers van het kartcentrum</caption>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Tussenvoegsel</th>
+                <th>Achternaam</th>
+                <th>Adres</th>
+                <th>Postcode</th>
+                <th>Woonplaats</th>
+                <th>Telefoon</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for deelnemer in deelnemers %}
+                <tr>
+                    <td>{{ deelnemer.username }}</td>
+                    <td>{{ deelnemer.email }}</td>
+                    <td>{{ deelnemer.tussenvoegsel }}</td>
+                    <td>{{ deelnemer.achternaam }}</td>
+                    <td>{{ deelnemer.adres }}</td>
+                    <td>{{ deelnemer.postcode }}</td>
+                    <td>{{ deelnemer.woonplaats }}</td>
+                    <td>{{ deelnemer.telefoon }}</td>
+                    <td title="bewerk de gegevens van deze activiteit">
+
+
+                        <a href="{{ path('deelnemer_edit', {'id':deelnemer.id}) }}" >
+                            <span class="glyphicon glyphicon-pencil" style="color:red"></span>
+                        </a>
+                    </td>
+                    <td title="verwijder deze activiteit is definitief">
+                        <a href="{{ path('deelnemer_delete', {'id':deelnemer.id}) }}" >
+                            <span class="glyphicon glyphicon-minus" style="color:red"></span>
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+    </section>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'medewerker.html.twig' %}
+{% form_theme form _self %}
+{% block button_widget %}
+    {%- set attr = attr|merge({class: (attr.class|default('btn-primary') ~ ' btn')|trim}) -%}
+    {%- if label is not same as(false) and label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</button>
+{%- endblock button_widget %}
+
+{% block form_group_class %}
+    col-sm-6
+{%- endblock form_group_class %}
+
+{% block menu %}
+    <li><a href="{{ path('overzichtactiviteiten') }}">Home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge"></span>Beheer</a></li>
+    <li><a href="{{ path('soortIndex') }}"><span class="badge"></span>Soort Activiteiten</a></li>
+    <li><a href="{{ path('deelnemers') }}"><span class="badge"></span>Gebruikers</a></li>
+{% endblock %}
+
+
+
+{% block content %}
+    <h3>Gebruiker aanpassen</h3>
+
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soortactiviteit index{% endblock %}
+
+{% block body %}
+    <h1>Soortactiviteit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Naam</th>
+                <th>MinLeeftijd</th>
+                <th>Tijdsduur</th>
+                <th>Prijs</th>
+                <th>Beschrijving</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for soortactiviteit in soortactiviteits %}
+            <tr>
+                <td>{{ soortactiviteit.id }}</td>
+                <td>{{ soortactiviteit.naam }}</td>
+                <td>{{ soortactiviteit.minLeeftijd }}</td>
+                <td>{{ soortactiviteit.tijdsduur }}</td>
+                <td>{{ soortactiviteit.prijs }}</td>
+                <td>{{ soortactiviteit.beschrijving }}</td>
+                <td>
+                    <a href="{{ path('soortactiviteit_show', {'id': soortactiviteit.id}) }}">show</a>
+                    <a href="{{ path('soortactiviteit_edit', {'id': soortactiviteit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('soortactiviteit_new') }}">Create new</a>
+{% endblock %}

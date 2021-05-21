@@ -1,0 +1,52 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li class="active"><a href="{{ path('overzichtactiviteiten') }}">Home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ activiteiten|length }}</span>Activiteiten</a></li>
+    <li><a href="{{ path('soortIndex') }}"><span class="badge"></span>Soort Activiteiten</a></li>
+    <li><a href="{{ path('deelnemers') }}"><span class="badge"></span>Gebruikers</a></li>
+{% endblock %}
+{% block content %}
+    <section >
+        <table class="table" style="table-layout: fixed">
+            <caption>Dit zijn alle activiteiten van het kartcentrum</caption>
+            <thead>
+            <tr>
+                <td>Datum</td>
+                <td>Tijd</td>
+                <td>Soort activiteit</td>
+                <td>Deelnemers</td>
+                <td>Actie</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activiteit in activiteiten %}
+                <tr>
+                    <td>
+                        {{ activiteit.datum|date("d-m-Y")}}
+                    </td>
+                    <td>
+                        {{ activiteit.tijd|date("H:i")}}
+                    </td>
+
+                    <td>
+                        {{ activiteit.soort.naam}}
+                    </td>
+                    <td>
+                        {{ activiteit.users|length}}
+                    </td>
+                    <td title="deelnemers aan deze activiteit">
+
+                        <a href="{{ path('details', {'id':activiteit.id}) }}" >
+                            <span class="glyphicon glyphicon-search" style="color:red"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <br />
+    </section>
+
+{% endblock %}

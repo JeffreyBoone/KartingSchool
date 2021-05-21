@@ -1,0 +1,67 @@
+{% extends 'medewerker.html.twig' %}
+
+{% block menu %}
+    <li><a href="{{ path('overzichtactiviteiten') }}">Home</a></li>
+    <li><a href="{{ path('beheer') }}"><span class="badge">{{ aantal }}</span>Activiteiten</a></li>
+    <li><a href="{{ path('soortIndex') }}"><span class="badge"></span>Soort Activiteiten</a></li>
+    <li><a href="{{ path('deelnemers') }}"><span class="badge"></span>Gebruikers</a></li>
+{% endblock %}
+{% block content %}
+
+
+    <section >
+        <table class="table table-bordered" style="table-layout: fixed">
+            <caption>Activiteit</caption>
+            <tr >
+                <td>soort</td>
+                <td class="text-primary">{{ activiteit.soort.naam}}</td>
+            </tr>
+            <tr>
+                <td>datum:</td>
+                <td>{{ activiteit.datum|date("d-m-Y")}} </td>
+            </tr>
+            <tr >
+                <td>tijd:</td>
+                <td>{{ activiteit.tijd|date("h:i")}}</td>
+            </tr>
+
+
+        </table>
+        {%  if deelnemers|length > 0 %}
+            <table class="table table-striped" style="table-layout: fixed">
+                <caption>Dit zijn de deelnemers</caption>
+                <thead>
+                <tr>
+                    <td>naam</td>
+                    <td>adres</td>
+                    <td>postcode</td>
+                    <td>woonplaats</td>
+                    <td>email</td>
+                    <td>telefoon</td>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for deelnemer in deelnemers %}
+                <tr>
+
+                    <td>{{ deelnemer.naam}}</td>
+                    <td> {{ deelnemer.adres}}</td>
+                    <td> {{ deelnemer.postcode}}</td>
+                    <td>{{ deelnemer.woonplaats}}</td>
+                    <td>{{ deelnemer.email}}</td>
+                    <td>{{ deelnemer.telefoon}}</td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        {% else %}
+             <p> geen deelnemers </p>
+        {% endif %}
+
+        <br  />
+    </section>
+
+{% endblock %}

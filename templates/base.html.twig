@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{% block title %}Kartcentrum!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}" />
+        <link rel="stylesheet" href="{{ asset('css/jquery-ui-timepicker-addon.css') }}" />
+
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui.js') }}"></script>
+        <script src="{{ asset('js/jquery-ui-timepicker-addon.js') }}"></script>
+        <script>
+            $( function() {
+                $( ".js-datepicker" ).datepicker({
+                    dateFormat:'dd-mm-yy'
+
+                });
+
+                $('.js-timepicker').timepicker();
+            } );
+        </script>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body style="background-color: gainsboro">
+
+        {% block body %}{% endblock %}
+
+    </body>
+</html>
+

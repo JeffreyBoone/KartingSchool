@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Soortactiviteit{% endblock %}
+
+{% block body %}
+    <h1>Soortactiviteit</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ soortactiviteit.id }}</td>
+            </tr>
+            <tr>
+                <th>Naam</th>
+                <td>{{ soortactiviteit.naam }}</td>
+            </tr>
+            <tr>
+                <th>MinLeeftijd</th>
+                <td>{{ soortactiviteit.minLeeftijd }}</td>
+            </tr>
+            <tr>
+                <th>Tijdsduur</th>
+                <td>{{ soortactiviteit.tijdsduur }}</td>
+            </tr>
+            <tr>
+                <th>Prijs</th>
+                <td>{{ soortactiviteit.prijs }}</td>
+            </tr>
+            <tr>
+                <th>Beschrijving</th>
+                <td>{{ soortactiviteit.beschrijving }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('soortactiviteit_index') }}">back to list</a>
+
+    <a href="{{ path('soortactiviteit_edit', {'id': soortactiviteit.id}) }}">edit</a>
+
+    {{ include('soortactiviteit/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'bezoeker.html.twig' %}
+{% block menu %}
+    <li><a href="{{ path('homepage') }}">Home</a></li>
+    <li class="active"><a href="{{ path('kartactiviteiten') }}">Aanbod</a></li>
+    <li><a href="{{ path('registreren') }}">Registreren</a></li>
+    <li><a href="#">Contact</a></li>
+{% endblock %}
+{% block content %}
+    <section >
+        <article>
+            <h3>Er zijn {{ soortactiviteiten|length }} soorten activiteiten </h3>
+            <ul class="list-group">
+                {% for activiteit in soortactiviteiten %}
+                <li class="list-group-item text-primary">{{ activiteit.naam }}</li>
+                {% endfor %}
+            </ul>
+            <p>
+                Let op, voor het karten zijn dichte schoenen verplicht.
+                Karten met een korte broek is niet toegestaan. Wij hebben overalls ter beschikking,
+                maar probeer indien mogelijk een lange broek aan te doen of mee te nemen.
+            </p>
+        </article>
+        <figure>
+            <img class="img-responsive center-block" style="width:30%"src={{ asset('img/kart.jpg') }} alt="kart" />
+        </figure>
+    </section>
+{% endblock %}

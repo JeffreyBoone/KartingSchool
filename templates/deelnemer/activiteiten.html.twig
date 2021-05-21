@@ -1,0 +1,133 @@
+{% extends 'deelnemer.html.twig' %}
+{% block menu %}
+    <li><a href="{{ path('activiteiten') }}">Home</a></li>
+
+
+{% endblock %}
+
+
+{% block content %}
+<section >
+    <table class="table" style="table-layout: fixed" >
+        <caption>
+            Dit zijn alle beschikbare activiteiten
+        </caption>
+        <thead>
+        <tr>
+            <td>Datum</td>
+            <td>Tijd</td>
+            <td>Soort activiteit</td>
+            <td>Beschrijving</td>
+            <td>Prijs</td>
+            <td>Tijdsduur</td>
+            <td>Minimum leeftijd</td>
+            <td>Beschikbare plekken</td>
+            <td>Schrijf in</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for activiteit in beschikbare_activiteiten %}
+        <tr>
+            <td>
+                {{ activiteit.datum|date("d-m-Y")}}
+            </td>
+            <td>
+                {{ activiteit.tijd|date("H:i")}}
+            </td>
+
+            <td>
+                {{ activiteit.soort.naam}}
+            </td>
+            <td>
+                {{ activiteit.soort.beschrijving }}
+            </td>
+            <td>
+                &euro;{{ activiteit.soort.prijs|number_format(2,',','.')}}
+            </td>
+            <td>
+                {{ activiteit.soort.tijdsduur }} minuten
+            </td>
+            <td>
+                {{ activiteit.soort.minLeeftijd }} jaar
+            </td>
+            <td>
+                {% if (activiteit.maxdeelnemers - activiteit.users|length) <= 0  %}
+                    <p style="color:red;">Niet beschikbaar</p>
+            </td>
+                {% else %}
+                {{ (activiteit.maxdeelnemers - activiteit.users|length )}}
+                    </td>
+                    <td title="schrijf in voor activiteit">
+
+
+                        <a href="{{ path('inschrijven', {'id':activiteit.id}) }}" >
+                            <span class="glyphicon glyphicon-plus" style="color:red"></span>
+                        </a>
+                    </td>
+                    {% endif %}
+
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table" style="table-layout: fixed">
+        <caption>
+            Dit zijn de door jou ingeschreven activiteiten
+        </caption>
+        <thead>
+        <tr>
+            <td>datum</td>
+            <td>tijd</td>
+            <td>soort activiteit</td>
+            <td>prijs</td>
+            <td>schrijf uit</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for activiteit in ingeschreven_activiteiten %}
+            <tr>
+                <td>
+                    {{ activiteit.datum|date("d-m-Y")}}
+                </td>
+                <td>
+                    {{ activiteit.tijd|date("H:i")}}
+                </td>
+
+                <td>
+                    {{ activiteit.soort.naam}}
+                </td>
+                <td>
+                    &euro;{{ activiteit.soort.prijs|number_format(2,',','.')}}
+                </td>
+                <td title="schrijf in voor activiteit">
+                    <a href="{{ path('uitschrijven', {'id':activiteit.id}) }}" >
+                        <span class="glyphicon glyphicon-minus" style="color:red"></span>
+                    </a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+                Totaal prijs:
+            </td>
+            <td>
+                &euro;{{totaal|number_format(2,',','.')}}
+
+            </td>
+            <td>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+{% endblock %}
